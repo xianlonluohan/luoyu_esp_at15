@@ -265,4 +265,12 @@ namespace emakefun {
         return result_buffer;
     }
 
+    function emptyRx(timeout_ms: number): void {
+        const end_time = input.runningTime() + timeout_ms;
+        do {
+            serial.readBuffer(0);
+            basic.pause(10);
+        } while (input.runningTime() < end_time);
+    }
+
 }
