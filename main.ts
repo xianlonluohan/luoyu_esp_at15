@@ -50,21 +50,19 @@ namespace emakefun {
     function cancelSend(): boolean {
         basic.pause(50);
         serial.writeString("+++")
-        serial.writeLine("")
-        basic.pause(100);
-        serial.readBuffer(0);
-        serial.readBuffer(0);
-        serial.readBuffer(0);
-        // basic.pause(500);
-        return false;
-        // if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 100)) {
-        //     serial.writeLine("")
-        //     serial.readBuffer(0);
-        //     basic.pause(500);
-        //     return false;
-        // }
+        // serial.writeLine("")
+        // basic.pause(100);
+        // serial.readBuffer(0);
+        // serial.readBuffer(0);
+        // serial.readBuffer(0);
+        // return false;
+        if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 200)) {
+            serial.writeLine("")
+            serial.readBuffer(0);
+            return false;
+        }
 
-        // return true;
+        return true;
     }
 
     /**
