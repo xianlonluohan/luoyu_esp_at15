@@ -1,6 +1,6 @@
 //%block="Emakefun"
 namespace emakefun {
-
+    let se = false;
 
     /**
      * MQTT connection scheme options.
@@ -41,7 +41,12 @@ namespace emakefun {
         }
         const targets = [success_target, "\r\nERROR\r\n", "busy p...\r\n"];
         serial.writeString(command + "\r\n");
-        return emakefun.multiFindUtil(targets, timeout_ms) == 0
+        let s2 = emakefun.multiFindUtil(targets, timeout_ms);
+        if (se) {
+            basic.showNumber(s2);
+        }
+
+        return s2 == 0
     }
 
     /**
@@ -52,7 +57,7 @@ namespace emakefun {
         serial.writeString("+++")
         emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 200);
         serial.writeLine("")
-        basic.pause(100);
+        // basic.pause(100);
         serial.readBuffer(0);
         serial.readBuffer(0);
         serial.readBuffer(0);
@@ -111,6 +116,7 @@ namespace emakefun {
                     return;
                 }
             } else {
+                se = true;
                 cancelSend();
 
             }
