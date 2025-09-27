@@ -50,14 +50,21 @@ namespace emakefun {
     function cancelSend(): boolean {
         basic.pause(50);
         serial.writeString("+++")
-        if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 100)) {
-            serial.writeLine("")
-            serial.readBuffer(0);
-            basic.pause(500);
-            return false;
-        }
+        serial.writeLine("")
+        basic.pause(100);
+        serial.readBuffer(0);
+        serial.readBuffer(0);
+        serial.readBuffer(0);
+        basic.pause(500);
+        return false;
+        // if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 100)) {
+        //     serial.writeLine("")
+        //     serial.readBuffer(0);
+        //     basic.pause(500);
+        //     return false;
+        // }
 
-        return true;
+        // return true;
     }
 
     /**
@@ -106,8 +113,6 @@ namespace emakefun {
                 }
             } else {
                 cancelSend();
-                // basic.showNumber(res++);
-                // continue;
 
             }
         } while (input.runningTime() < end_time);
