@@ -52,7 +52,7 @@ namespace emakefun {
         serial.writeString("+++")
         emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 1000);
         // serial.writeLine("")
-        // basic.pause(100);
+        basic.pause(100);
         serial.readBuffer(0);
         serial.readBuffer(0);
         serial.readBuffer(0);
