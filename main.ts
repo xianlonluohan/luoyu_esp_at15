@@ -55,7 +55,7 @@ namespace emakefun {
         serial.readBuffer(0);
         serial.readBuffer(0);
         serial.readBuffer(0);
-        basic.pause(500);
+        // basic.pause(500);
         return false;
         // if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 100)) {
         //     serial.writeLine("")
