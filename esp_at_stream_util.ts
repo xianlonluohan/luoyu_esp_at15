@@ -265,6 +265,10 @@ namespace emakefun {
         return result_buffer;
     }
 
+    /**
+     * Clear the serial receive buffer.
+     * @param timeout_ms Timeout for clearing operation (milliseconds).
+     */
     export function emptyRx(timeout_ms: number): void {
         const end_time = input.runningTime() + timeout_ms;
         g_received_buffer = Buffer.create(0)

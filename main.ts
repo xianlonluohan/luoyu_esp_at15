@@ -1,7 +1,5 @@
 //%block="Emakefun"
 namespace emakefun {
-    let se = false;
-
     /**
      * MQTT connection scheme options.
      */
@@ -41,12 +39,7 @@ namespace emakefun {
         }
         const targets = [success_target, "\r\nERROR\r\n", "busy p...\r\n"];
         serial.writeString(command + "\r\n");
-        let s2 = emakefun.multiFindUtil(targets, timeout_ms);
-        if (se) {
-            basic.showNumber(s2);
-        }
-
-        return s2 == 0
+        return emakefun.multiFindUtil(targets, timeout_ms) == 0
     }
 
     /**
@@ -55,19 +48,11 @@ namespace emakefun {
     function cancelSend(): boolean {
         basic.pause(50);
         serial.writeString("+++")
-        // emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 200);
-        // serial.writeLine("")
-        // // basic.pause(100);
-        // serial.readBuffer(0);
-        // serial.readBuffer(0);
-        // serial.readBuffer(0);
-        // return false;
         if (!emakefun.singleFindUtil("\r\nSEND Canceled\r\n", 200)) {
             serial.writeLine("")
             emakefun.emptyRx(100);
             return false;
         }
-
         return true;
     }
 
@@ -109,16 +94,13 @@ namespace emakefun {
     //% weight=99
     export function restart(timeout_ms: number): void {
         const end_time = input.runningTime() + timeout_ms;
-        let res = 0;
         do {
             if (writeCommand("AT+RST", "\r\nOK\r\n", 1000) && emakefun.singleFindUtil("\r\nready\r\n", 1000)) {
                 if (writeCommand("AT", "\r\nOK\r\n", 100)) {
                     return;
                 }
             } else {
-                se = true;
                 cancelSend();
-
             }
         } while (input.runningTime() < end_time);
         throw "Error: module restart failed.";
