@@ -66,7 +66,7 @@ namespace emakefun {
     //% baud_rate.defl=BaudRate.BaudRate9600
     //% weight=100
     export function initEspAtModule(): void {
-        restart(5000);
+        restart(2000);
         const at_commands = [
             "ATE0",
             "AT+CWINIT=1",
