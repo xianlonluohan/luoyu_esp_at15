@@ -66,8 +66,7 @@ namespace emakefun {
     //% baud_rate.defl=BaudRate.BaudRate9600
     //% weight=100
     export function initEspAtModule(): void {
-        serial.readBuffer(0);
-        restart(10000);
+        restart(5000);
         const at_commands = [
             "ATE0",
             "AT+CWINIT=1",
@@ -95,7 +94,7 @@ namespace emakefun {
     export function restart(timeout_ms: number): void {
         const end_time = input.runningTime() + timeout_ms;
         do {
-            if (writeCommand("AT+RST", "\r\nOK\r\n", 1000) && emakefun.singleFindUtil("\r\nready\r\n", 1000)) {
+            if (writeCommand("AT+RST", "\r\nOK\r\n", 100) && emakefun.singleFindUtil("\r\nready\r\n", 1000)) {
                 if (writeCommand("AT", "\r\nOK\r\n", 100)) {
                     return;
                 }

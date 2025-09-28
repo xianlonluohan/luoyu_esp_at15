@@ -1,6 +1,6 @@
+const MQTT_TOPIC = `emakefun/sensor/${control.deviceSerialNumber()}/testtopic`
 let last_publish_time = 0
 let message: { topic: string; message: string; } = null
-const MQTT_TOPIC = `emakefun/sensor/${control.deviceSerialNumber()}/testtopic`
 let display_state = true
 serial.redirect(
     SerialPin.P1,
